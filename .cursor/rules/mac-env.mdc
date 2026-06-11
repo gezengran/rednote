@@ -1,0 +1,50 @@
+---
+description: Mac 本机开发环境与依赖安装约束（brew + conda）
+alwaysApply: true
+---
+
+# Mac 开发环境约束
+
+本机为 **macOS**，已配置 **Homebrew** 与 **Conda**。安装依赖或创建环境时须遵循以下约定。
+
+## 平台与工具
+
+- 默认在 macOS 上开发与运行，命令与路径按 Mac 习惯编写。
+- 系统级/跨语言工具用 **Homebrew**：`brew install <pkg>`。
+- Python 项目用 **Conda** 管理环境与包，不直接用系统 Python。
+
+## Conda 环境
+
+- 每个项目或子项目使用独立 conda 环境，命名建议：`rednote` 或 `rednote-<模块名>`。
+- 创建环境示例：
+
+```bash
+conda create -n rednote python=3.12 -y
+conda activate rednote
+```
+
+- 安装 Python 包优先：`conda install <pkg>`；conda 无该包时再用 `pip install <pkg>`（须在已激活的 conda 环境内）。
+- 固定依赖时生成 `environment.yml` 或 `requirements.txt`，便于复现。
+
+## Homebrew 用途
+
+- 仅用于 conda 不便提供的**系统依赖**，例如：`git`、`ffmpeg`、`poppler`、`tesseract`、`node` 等。
+- 安装前检查是否已存在：`brew list <pkg>` 或 `which <cmd>`。
+- 不用 brew 安装 Python 作为主要运行时（避免与 conda 冲突）。
+
+## Agent 执行约定
+
+- 需要新包时，**自行**用 brew 或 conda 安装，不要只提示用户手动安装。
+- 安装前先确认当前环境：`conda info --envs`、`which python`、`brew --version`。
+- 优先非交互式标志：conda 用 `-y`，brew 用 `HOMEBREW_NO_AUTO_UPDATE=1` 减少无关更新。
+- 新增依赖后同步更新 `environment.yml` / `requirements.txt`（若项目已有这些文件）。
+- 避免 `sudo pip install`、避免修改系统 Python 或全局 pip。
+
+## 常用检查命令
+
+```bash
+uname -s          # 应为 Darwin
+brew --version
+conda --version
+conda activate rednote && python --version
+```
