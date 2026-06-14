@@ -108,8 +108,10 @@ def text_el(
     *,
     size: int = 36,
     align: str = "left",
+    valign: str = "top",
     family: int = FONT_HAND,
     color: str = BODY,
+    container_id: str | None = None,
 ) -> dict:
     lines = content.split("\n")
     line_h = int(size * 1.35)
@@ -122,12 +124,74 @@ def text_el(
     el["fontSize"] = size
     el["fontFamily"] = family
     el["textAlign"] = align
-    el["verticalAlign"] = "top"
+    el["verticalAlign"] = valign
     el["baseline"] = size - 2
-    el["containerId"] = None
+    el["containerId"] = container_id
     el["lineHeight"] = 1.25
     el["roughness"] = 0
+    el["autoResize"] = container_id is not None
     return el
+
+
+def rect_with_text(
+    x: float,
+    y: float,
+    w: float,
+    h: float,
+    content: str,
+    *,
+    bg: str = "#ffffff",
+    stroke: str = STROKE,
+    roughness: int = 1,
+    size: int = 36,
+    align: str = "left",
+    valign: str = "middle",
+    family: int = FONT_HAND,
+    color: str = BODY,
+    padding: int = 20,
+) -> list[dict]:
+    """Rectangle with bound text — double-click the box to edit in Excalidraw."""
+    rect_id = _id()
+    text_id = _id()
+
+    lines = content.split("\n")
+    line_h = int(size * 1.35)
+    text_h = max(line_h * len(lines), size + 8)
+    text_w = w - padding * 2
+
+    if valign == "middle":
+        text_y = y + (h - text_h) / 2
+    else:
+        text_y = y + padding
+
+    if align == "center":
+        text_x = x + (w - text_w) / 2
+    else:
+        text_x = x + padding
+
+    rect_el = _base_fields("rectangle", x, y, w, h)
+    rect_el["id"] = rect_id
+    rect_el["backgroundColor"] = bg
+    rect_el["strokeColor"] = stroke
+    rect_el["roughness"] = roughness
+    rect_el["roundness"] = {"type": 3}
+    rect_el["boundElements"] = [{"id": text_id, "type": "text"}]
+
+    text_elem = text_el(
+        content,
+        text_x,
+        text_y,
+        text_w,
+        size=size,
+        align=align,
+        valign=valign,
+        family=family,
+        color=color,
+        container_id=rect_id,
+    )
+    text_elem["id"] = text_id
+
+    return [rect_el, text_elem]
 
 
 def image_el(
@@ -191,50 +255,31 @@ def build_p1(files: dict) -> list[dict]:
 
     quote_y = 72
     quote_h = 248
-    els.append(rect(pad, quote_y, inner, quote_h))
-    els.append(
-        text_el(
-            "来自 Reddit",
-            pad + 32,
-            quote_y + 24,
-            inner - 64,
-            size=22,
-            color=TITLE,
-        )
-    )
-    els.append(
-        text_el(
-            REDDIT_QUOTE,
-            pad + 32,
-            quote_y + 68,
-            inner - 64,
+    els.extend(
+        rect_with_text(
+            pad,
+            quote_y,
+            inner,
+            quote_h,
+            "来自 Reddit\n\n" + REDDIT_QUOTE,
             size=30,
+            valign="top",
+            padding=32,
         )
     )
 
-    # 中文区与 Reddit 区同结构：标签左对齐 + 正文左对齐；CJK 同字号视觉更大，正文 32 而非 38
-    text_x = pad + 32
-    text_w = inner - 64
     hook_y = quote_y + quote_h + 36
     hook_h = 200
-    els.append(rect(pad, hook_y, inner, hook_h))
-    els.append(
-        text_el(
-            "有人预言：",
-            text_x,
-            hook_y + 24,
-            text_w,
-            size=22,
-            color=TITLE,
-        )
-    )
-    els.append(
-        text_el(
-            "15 年后会有「心理健身房」\n我当真了。",
-            text_x,
-            hook_y + 64,
-            text_w,
+    els.extend(
+        rect_with_text(
+            pad,
+            hook_y,
+            inner,
+            hook_h,
+            "有人预言：\n\n15 年后会有「心理健身房」\n我当真了。",
             size=32,
+            valign="top",
+            padding=32,
         )
     )
 
@@ -247,7 +292,6 @@ def build_p1(files: dict) -> list[dict]:
 
 
 def build_p2(files: dict) -> list[dict]:
-    pad = 40
     els: list[dict] = [frame_el("P2 三个训练器", 0, 0, CANVAS_W, CANVAS_H)]
 
     bg_id, bg_file = _file_entry(ASSETS / "mental-gym-p2-concept-v1-realistic.png")
@@ -255,24 +299,29 @@ def build_p2(files: dict) -> list[dict]:
     els.append(image_el(bg_id, 0, 0, CANVAS_W, int(CANVAS_H * 0.62)))
 
     bar_y = int(CANVAS_H * 0.58)
-    els.append(rect(0, bar_y, CANVAS_W, CANVAS_H - bar_y, bg="#ffffffee", stroke="transparent", roughness=0))
-    els.append(
-        text_el(
+    bar_h = CANVAS_H - bar_y
+    els.extend(
+        rect_with_text(
+            0,
+            bar_y,
+            CANVAS_W,
+            bar_h,
             "没有跑步机，没有哑铃\n只有注意力训练器\n\n"
             "① 阅读跑步机 — 分心就暂停\n"
             "② 抗干扰舱 — 通知弹但不能点\n"
             "③ 深度思考台 — 20 分钟不许问 AI",
-            pad,
-            bar_y + 30,
-            CANVAS_W - pad * 2,
+            bg="#ffffffee",
+            stroke="transparent",
+            roughness=0,
             size=32,
+            valign="top",
+            padding=40,
         )
     )
     return els
 
 
 def build_p3(files: dict) -> list[dict]:
-    pad = 40
     els: list[dict] = [frame_el("P3 用进废退", 0, 0, CANVAS_W, CANVAS_H)]
 
     bg_id, bg_file = _file_entry(ASSETS / "mental-gym-p3-reading-treadmill.png")
@@ -280,57 +329,130 @@ def build_p3(files: dict) -> list[dict]:
     els.append(image_el(bg_id, 0, 0, CANVAS_W, int(CANVAS_H * 0.65)))
 
     bar_y = int(CANVAS_H * 0.6)
-    els.append(rect(0, bar_y, CANVAS_W, CANVAS_H - bar_y, bg=BG, stroke="transparent", roughness=0))
-    els.append(
-        text_el(
+    bar_h = CANVAS_H - bar_y
+    els.extend(
+        rect_with_text(
+            0,
+            bar_y,
+            CANVAS_W,
+            bar_h,
             "持续注意力是一条神经通路\n用进废退\n\n我们现在的生活\n几乎在系统性「不练」它",
-            pad,
-            bar_y + 40,
-            CANVAS_W - pad * 2,
+            bg=BG,
+            stroke="transparent",
+            roughness=0,
             size=36,
             color=TITLE,
+            valign="top",
+            padding=40,
         )
     )
     return els
 
 
 def build_text_card(name: str, lines: list[str], *, title: str | None = None) -> list[dict]:
-    pad = 80
+    pad = 60
     els: list[dict] = [frame_el(name, 0, 0, CANVAS_W, CANVAS_H)]
     els.append(rect(0, 0, CANVAS_W, CANVAS_H, bg=BG, stroke="transparent", roughness=0))
 
-    y = 200
-    if title:
-        els.append(text_el(title, pad, y, CANVAS_W - pad * 2, size=48, align="center", color=TITLE))
-        y += 120
-
     if title and not lines:
-        col_w = (CANVAS_W - pad * 2 - 40) // 2
+        col_gap = 36
+        inner = CANVAS_W - pad * 2
+        col_w = (inner - col_gap) // 2
         left_x = pad
-        right_x = pad + col_w + 40
-        row_h = 100
-        start_y = y + 40
+        right_x = pad + col_w + col_gap
 
-        els.append(text_el("现在", left_x, start_y - 60, col_w, size=36, align="center", color=TITLE))
-        els.append(text_el("未来", right_x, start_y - 60, col_w, size=36, align="center", color=TITLE))
+        title_h = 72
+        header_h = 48
+        cell_h = 72
+        cell_gap = 14
+        title_gap = 28
+        header_gap = 20
+
+        rows = 3
+        table_h = header_h + header_gap + rows * cell_h + (rows - 1) * cell_gap
+        total_h = title_h + title_gap + table_h
+        start_y = (CANVAS_H - total_h) // 2
+
+        els.extend(
+            rect_with_text(
+                left_x,
+                start_y,
+                inner,
+                title_h,
+                title,
+                size=48,
+                align="center",
+                valign="middle",
+                color=TITLE,
+                bg="transparent",
+                stroke="transparent",
+                roughness=0,
+            )
+        )
+
+        header_y = start_y + title_h + title_gap
+        els.extend(
+            rect_with_text(
+                left_x,
+                header_y,
+                col_w,
+                header_h,
+                "现在",
+                size=36,
+                align="center",
+                valign="middle",
+                color=TITLE,
+                bg="transparent",
+                stroke="transparent",
+                roughness=0,
+            )
+        )
+        els.extend(
+            rect_with_text(
+                right_x,
+                header_y,
+                col_w,
+                header_h,
+                "未来",
+                size=36,
+                align="center",
+                valign="middle",
+                color=TITLE,
+                bg="transparent",
+                stroke="transparent",
+                roughness=0,
+            )
+        )
 
         pairs = [("刷短视频", "注意力训练"), ("AI 帮总结", "自己读完"), ("快速切换", "持续专注")]
+        row_y = header_y + header_h + header_gap
         for i, (left, right) in enumerate(pairs):
-            ry = start_y + i * row_h
-            els.append(rect(left_x, ry, col_w, row_h - 20, bg="#ffffff", roughness=1))
-            els.append(rect(right_x, ry, col_w, row_h - 20, bg="#ffffff", roughness=1))
-            els.append(text_el(left, left_x + 20, ry + 24, col_w - 40, size=32, align="center"))
-            els.append(text_el(right, right_x + 20, ry + 24, col_w - 40, size=32, align="center"))
+            ry = row_y + i * (cell_h + cell_gap)
+            els.extend(
+                rect_with_text(
+                    left_x, ry, col_w, cell_h, left, size=32, align="center", valign="middle"
+                )
+            )
+            els.extend(
+                rect_with_text(
+                    right_x, ry, col_w, cell_h, right, size=32, align="center", valign="middle"
+                )
+            )
     elif lines:
         body = "\n".join(lines)
-        els.append(
-            text_el(
-                body,
+        line_h = int(42 * 1.35)
+        card_h = line_h * len(lines) + 80
+        card_y = (CANVAS_H - card_h) // 2
+        els.extend(
+            rect_with_text(
                 pad,
-                (CANVAS_H - len(lines) * 60) // 2,
+                card_y,
                 CANVAS_W - pad * 2,
+                card_h,
+                body,
                 size=42,
                 align="center",
+                valign="middle",
             )
         )
 

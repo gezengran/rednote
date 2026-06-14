@@ -4,7 +4,7 @@
   "source": "https://excalidraw.com",
   "elements": [
     {
-      "id": "511d46f6abf64cc4",
+      "id": "a30b30fb496a4f18",
       "type": "frame",
       "x": 0,
       "y": 0,
@@ -21,18 +21,18 @@
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 2098673180,
+      "seed": 1413089546,
       "version": 1,
-      "versionNonce": 577185704,
+      "versionNonce": 1314433591,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1781172229541,
+      "updated": 1781426788299,
       "link": null,
       "locked": false,
       "name": "P5 肌肉失忆"
     },
     {
-      "id": "91754f023889442e",
+      "id": "24eb6116a2e5457e",
       "type": "rectangle",
       "x": 0,
       "y": 0,
@@ -51,20 +51,54 @@
       "roundness": {
         "type": 3
       },
-      "seed": 1988145757,
+      "seed": 2068813379,
       "version": 1,
-      "versionNonce": 2020505660,
+      "versionNonce": 1117848862,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1781172229541,
+      "updated": 1781426788299,
       "link": null,
       "locked": false
     },
     {
-      "id": "27df74e49ace456c",
+      "id": "2437a38ee5164b24",
+      "type": "rectangle",
+      "x": 60,
+      "y": 624,
+      "width": 960,
+      "height": 192,
+      "angle": 0,
+      "strokeColor": "#3d5a80",
+      "backgroundColor": "#ffffff",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 384476532,
+      "version": 1,
+      "versionNonce": 320229392,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "id": "c3003987bca14469",
+          "type": "text"
+        }
+      ],
+      "updated": 1781426788299,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "c3003987bca14469",
       "type": "text",
-      "x": 80,
-      "y": 660,
+      "x": 80.0,
+      "y": 664.0,
       "width": 920,
       "height": 112,
       "angle": 0,
@@ -78,12 +112,12 @@
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 1417921327,
+      "seed": 584387911,
       "version": 1,
-      "versionNonce": 1784180873,
+      "versionNonce": 76146594,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1781172229541,
+      "updated": 1781426788299,
       "link": null,
       "locked": false,
       "text": "注意力像久不练的腿\n刚走两步，就想坐",
@@ -91,10 +125,11 @@
       "fontSize": 42,
       "fontFamily": 1,
       "textAlign": "center",
-      "verticalAlign": "top",
+      "verticalAlign": "middle",
       "baseline": 40,
-      "containerId": null,
-      "lineHeight": 1.25
+      "containerId": "2437a38ee5164b24",
+      "lineHeight": 1.25,
+      "autoResize": true
     }
   ],
   "appState": {

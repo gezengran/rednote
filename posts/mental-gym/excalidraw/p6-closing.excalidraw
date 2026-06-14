@@ -4,7 +4,7 @@
   "source": "https://excalidraw.com",
   "elements": [
     {
-      "id": "15bd4b599a8546e3",
+      "id": "7d2ec16e31a145ab",
       "type": "frame",
       "x": 0,
       "y": 0,
@@ -21,18 +21,18 @@
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 1952298752,
+      "seed": 1160090520,
       "version": 1,
-      "versionNonce": 477466386,
+      "versionNonce": 1558913997,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1781172229541,
+      "updated": 1781426788299,
       "link": null,
       "locked": false,
       "name": "P6 结尾"
     },
     {
-      "id": "8656be463b1342b0",
+      "id": "bb6565267ed04fef",
       "type": "rectangle",
       "x": 0,
       "y": 0,
@@ -51,20 +51,54 @@
       "roundness": {
         "type": 3
       },
-      "seed": 795865564,
+      "seed": 1009126529,
       "version": 1,
-      "versionNonce": 1465483616,
+      "versionNonce": 616820058,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1781172229541,
+      "updated": 1781426788299,
       "link": null,
       "locked": false
     },
     {
-      "id": "216bd34244cf4e5e",
+      "id": "1e18cddb7482420f",
+      "type": "rectangle",
+      "x": 60,
+      "y": 596,
+      "width": 960,
+      "height": 248,
+      "angle": 0,
+      "strokeColor": "#3d5a80",
+      "backgroundColor": "#ffffff",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "seed": 1964153280,
+      "version": 1,
+      "versionNonce": 340506848,
+      "isDeleted": false,
+      "boundElements": [
+        {
+          "id": "b0198c4c923a4e3c",
+          "type": "text"
+        }
+      ],
+      "updated": 1781426788299,
+      "link": null,
+      "locked": false
+    },
+    {
+      "id": "b0198c4c923a4e3c",
       "type": "text",
-      "x": 80,
-      "y": 630,
+      "x": 80.0,
+      "y": 636.0,
       "width": 920,
       "height": 168,
       "angle": 0,
@@ -78,12 +112,12 @@
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "seed": 579885291,
+      "seed": 479797887,
       "version": 1,
-      "versionNonce": 1987118684,
+      "versionNonce": 787213369,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1781172229541,
+      "updated": 1781426788299,
       "link": null,
       "locked": false,
       "text": "如果真有 mental gym\n练的不是智力\n是不被打断的能力",
@@ -91,10 +125,11 @@
       "fontSize": 42,
       "fontFamily": 1,
       "textAlign": "center",
-      "verticalAlign": "top",
+      "verticalAlign": "middle",
       "baseline": 40,
-      "containerId": null,
-      "lineHeight": 1.25
+      "containerId": "1e18cddb7482420f",
+      "lineHeight": 1.25,
+      "autoResize": true
     }
   ],
   "appState": {
