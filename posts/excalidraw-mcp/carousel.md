@@ -1,4 +1,4 @@
-# Excalidraw + MCP 小红书轮播 · 提纲
+# Excalidraw + MCP 小红书轮播 · 成品包
 
 竖版 3:4（1080×1440）。风格：Mental Gym 同系字卡 · `#F8FAFB` 背景 / `#3D5A80` 标题 / `#1A1A1A` 正文 · Excalidraw 手绘框。
 
@@ -8,111 +8,91 @@
 
 ---
 
-## 推敲结论摘要
-
-| 决策 | 结论 |
-|------|------|
-| MCP 路径 | 开源本地 [excalidraw-mcp-server](https://github.com/debu-sinha/excalidraw-mcp-server)；通用 MCP，不限 Cursor |
-| 创作双模式（制作侧，不出现在正文） | 新选题 Agent+MCP 探索；成熟页型脚本 scaffold + MCP 微调 |
-| 叙事 | C 为主（怪人工作流）、A 为辅（审美 vs 模板工具） |
-| 页数 | 4 页：1 笔记分享图封面 + 3 内页字卡 |
-| P2 对比写法 | 用个人行为对比，不点名贬损国内平台 |
-| P3 技术深度 | 前后对比 + MCP 通用性 + 「接线员」比喻；无 prompt 全文、无 npx |
-| 标题 | C：`上篇那张封面，是用 Excalidraw 排的` |
-| 首段 | D 半句：行为对比 + 一句补上下文 |
-| 封面分享图 | B + D 半句：`封面背后，是个白板` + `Mental Gym 续` |
-| 内页视觉 | Excalidraw 字卡统一；P3 加「手拖 vs 说话」简对比 |
-
----
-
-## 素材清单
+## 素材清单（已生成）
 
 | 文件 | 用途 |
 |------|------|
-| `assets/P1.png` | 封面分享图角标 / 缩略（回顾上篇 Mental Gym 封面） |
-| （新建）`assets/excalidraw-mcp-cover-share.png` | 小红书笔记分享图（信息流封面，单独设计） |
-| `posts/excalidraw-mcp/excalidraw/` | 内页 P2–P4 的 `.excalidraw` 成品（Agent + MCP 或脚本生成） |
+| `assets/178157809600-151.jpg` | **笔记分享图**（信息流封面，直接上传，不另生成） |
+| `assets/excalidraw-mcp-p2.png` | 轮播内页 1 · Excalidraw 功能展示（手绘框/字/箭头） |
+| `assets/excalidraw-mcp-p3.png` | 轮播内页 2 · 不需要花模板 |
+| `assets/excalidraw-mcp-p4.png` | 轮播内页 3 · Agent + MCP |
+| `posts/excalidraw-mcp/excalidraw/p2-what.excalidraw` | P2 源文件（Excalidraw 功能展示） |
+| `posts/excalidraw-mcp/excalidraw/p3-no-template.excalidraw` | P3 源文件 |
+| `posts/excalidraw-mcp/excalidraw/p4-mcp.excalidraw` | P4 源文件 |
+| `posts/excalidraw-mcp/excalidraw/all-pages.excalidraw` | 三页横向排布，可一次改完 |
 
----
+**发笔记顺序：** 分享图 `178157809600-151.jpg` → 轮播 `p2` → `p3` → `p4`（共 3 张内页）
 
-## 发笔记 · 标题 + 正文
+**重新生成（改文案后）：**
 
-### 标题（选一，推荐 1）
+```bash
+# 首次：安装 Playwright Chromium（导出 PNG 用）
+npm run playwright:install
 
-1. `上篇那张封面，是用 Excalidraw 排的` ← **已定**
-2. `Mental Gym 续 · 我为什么不用模板站做封面`
-3. `做小红书封面，我反而选了个「白板」`
+# 生成 .excalidraw + 导出 PNG（Virgil + 小赖，与 excalidraw.com 同引擎）
+python3 scripts/build_excalidraw_mcp_carousel.py
+```
 
-### 正文首段
+单页导出：
+
+```bash
+node scripts/export_excalidraw_png.mjs posts/excalidraw-mcp/excalidraw/p2-what.excalidraw assets/excalidraw-mcp-p2.png 3
+```
+
+## 发笔记 · 复制即用
+
+### 标题
 
 ```
-不是模板站不好，是我这种内容——截图 + 两行怪话 + 一张图——用 Excalidraw 反而更快。
+上篇那张封面，是用 Excalidraw 排的
+```
+
+### 正文（全文）
+
+```
+不是模板站不好，是我这种内容——截图 + 两句话 + 一张图——用 Excalidraw 反而更快。
 
 上篇 Mental Gym 封面就是这么来的。这篇不讲安装，说说这个白板是什么、以及 Agent + MCP 怎么省事。
+
+你更常：自己拖排版，还是让 Agent 帮你改画布？
 ```
 
 ### 话题标签
 
 `#Excalidraw` `#MCP` `#AI工具` `#小红书创作` `#怪人观察` `#MentalGym`
 
-### 结尾互动（可选，放正文末或 P4）
-
-```
-你更常：自己拖排版，还是让 Agent 帮你改画布？
-```
-
 ---
 
 ## 4 页文案 + 拼版
 
-### 封面 · 笔记分享图（重做，非整页复用 P1）
+### 封面 · 笔记分享图（直接用已发笔记截图）
 
-**用途：** 小红书信息流点击封面，与轮播 P1 内页不同文件。
-
-**主文案（B）：**
-```
-封面背后，是个白板
-```
-
-**副标（D 半句，选一）：**
-```
-Mental Gym 续
-```
-或
-```
-上篇封面怎么来的
-```
-
-**拼版建议：**
-- 1080×1440 或平台推荐分享图比例
-- 大字主文案居中偏上
-- 右下角或左侧：`assets/P1.png` 缩略（圆角 + 细边框），让人一眼认出上篇封面
-- 小字副标 + 可选「工具篇」
-- 色板与 Mental Gym 一致，保持系列感
+**文件：** `assets/178157809600-151.jpg` — 上篇 Mental Gym **已发笔记**信息流卡片，不叠字、不另生成。读者一眼能对上「上篇那张封面」。
 
 **不出现：** npx、配置文件、客户端名称
 
 ---
 
-### P2 · Excalidraw 是什么
+### P2 · Excalidraw 功能展示
 
-**职责：** 定义工具 + 气质（C 怪人选型 + A 审美）
+**职责：** 用画布元素**展示**工具能力，而非文字罗列
 
-**拼版：** 白底字卡，顶部小标题，中间 3–4 条要点，手绘圆角框
+**拼版：** 白底 + 迷你页面 mock（截图框 → 文本框 → 图框）+ 右侧标注（手绘矩形 / Virgil 字 / 椭圆箭头）+ 底部三芯片（圆角框 · 手写字 · JSON）
 
-**图上字：**
+**核心元素（图上可见）：**
+- 手绘圆角矩形框
+- Virgil 手写字（标题、标注、底句）
+- 箭头连线
+- 椭圆高亮
+- 虚线分隔
+
+**底句：**
 ```
-Excalidraw 是什么？
-
-· 开源在线白板，手绘风
-· 不是「海报模板商城」
-· 元素是 JSON 文件，在自己手里
-· 截图 + 几句字 + 一张图，够做小红书页
+不是海报模板商城
+元素是 JSON · 在自己手里
 ```
 
-**旁白要点（制作时可删，不上图）：**
-- 强调「画布」而非「设计软件」
-- 与 Canva/稿定那一类的差异：**不靠堆贴纸滤镜**，靠内容和留白
+**导出：** 已由 `scripts/export_excalidraw_png.mjs` 走 Excalidraw `exportToBlob`（Virgil + 小赖手绘体）
 
 ---
 
@@ -120,7 +100,7 @@ Excalidraw 是什么？
 
 **职责：** 行为对比（C），P1 仅作例证，不讲拼版步骤
 
-**拼版：** 字卡 + 可选小图：`assets/P1.png` 缩略或裁剪条（仅示意「这种干净叠层」）
+**拼版：** 字卡 + 可选小图：从 `178157809600-151.jpg` 裁建筑图条，或 `P1.png` 轮播首屏条（仅示意「截图 + 字 + 一张图」叠层）
 
 **图上字：**
 ```
@@ -129,7 +109,7 @@ Excalidraw 是什么？
 半小时还在调样式
 
 现在我常是：
-截图 + 两行怪话 + 一张图
+截图 + 两句话 + 一张图
 
 不是工具弱
 是这种内容，不需要花
@@ -173,46 +153,86 @@ MCP = Agent 和 Excalidraw 之间的接线员
 
 ---
 
-## 制作侧备忘（不出现在正文）
+## MCP 与 PNG 导出
 
-### MCP 配置（通用）
+### 重要：`export_scene` 与真实 PNG
 
-任何支持 MCP stdio 的 Agent 客户端均可，示例：
+| 模式 | `export_scene` PNG | 说明 |
+|------|-------------------|------|
+| **Standalone**（默认，无 canvas server） | ❌ | 返回提示「需要 canvas server」 |
+| **Connected**（canvas server 已启） | ⚠️ | 返回元素 JSON，**不是**位图文件 |
+| **批量成品导出**（推荐） | ✅ | `scripts/export_excalidraw_png.mjs` → Excalidraw 官方渲染引擎 |
+
+本篇 `assets/excalidraw-mcp-p*.png` 均用 **`export_excalidraw_png.mjs`** 导出（Virgil + 小赖，scale=3）。
+
+### Connected 模式（MCP 实时画布 / SVG）
+
+1. 复制 `.env.example` → `.env`，填入 `EXCALIDRAW_API_KEY`（`openssl rand -hex 32`）
+
+2. 启动 canvas server：
+
+```bash
+./scripts/start_excalidraw_canvas.sh
+# 浏览器打开 http://127.0.0.1:3000
+```
+
+3. `.cursor/mcp.json` 通过 `scripts/run_excalidraw_mcp.sh` 读取同一 `.env`
+
+4. **重启 Cursor** → Settings → MCP 刷新 excalidraw
+
+5. 对话中用 MCP 创建/修改元素；`export_scene` **format=svg** 可拿简化 SVG（无完整手绘字体）
+
+### MCP 配置（`.cursor/mcp.json`）
+
+密钥不进仓库，放在项目根 `.env`（见 `.env.example`）。MCP 经包装脚本启动：
 
 ```json
 {
   "mcpServers": {
     "excalidraw": {
-      "command": "npx",
-      "args": ["-y", "excalidraw-mcp-server"]
+      "command": "/path/to/rednote/scripts/run_excalidraw_mcp.sh",
+      "env": {
+        "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+      }
     }
   }
 }
 ```
 
-客户端仅配置文件路径不同（Cursor / Claude Desktop / VS Code / Continue 等）。
-
-### 双模式工作流（D，默认 A）
+### 双模式工作流
 
 | 阶段 | 做法 |
 |------|------|
 | 新选题 / 探索 | Agent + MCP 直接排版、试布局 |
-| 成熟页型（字卡） | `build_excalidraw_carousel.py` 类脚本 scaffold → MCP 微调 → 导出 |
-| 导出 | MCP `export_scene` PNG，或 excalidraw.com 手动微调后导出 3x |
+| 成熟页型 | `build_excalidraw_mcp_carousel.py` scaffold → MCP 微调 |
+| **PNG 导出** | `export_excalidraw_png.mjs`（非 MCP `export_scene` PNG） |
 
 ### 内页 Excalidraw 规格
 
 - 画布：1080 × 1440（3:4）
-- 字体：Virgil 手写体（fontFamily 1）或系列统一苹方/思源
-- 参考脚本：`scripts/build_excalidraw_carousel.py` 中 `rect_with_text`、色值常量
+- 字体：`fontFamily: 1`（Virgil + 中文自动用小赖 Xiaolai）
+- 参考：`scripts/build_excalidraw_mcp_carousel.py`
 
 ---
 
 ## 自检清单（发前）
 
-- [ ] 封面分享图与轮播内页是否为两个文件
-- [ ] 全文无 npx / 配置文件 / 某单一 Agent 品牌软广
-- [ ] P2、P3 未贬损具体国内平台
-- [ ] P3 对比图是否一眼能懂「更方便」
-- [ ] 新读者读首段能否理解「上篇是什么」（Mental Gym 封面）
-- [ ] 语气符合怪人观察，非测评号、非教程号
+- [x] 封面直接用 `178157809600-151.jpg`，与轮播内页为不同文件
+- [x] 全文无 npx / 配置文件 / 某单一 Agent 品牌软广
+- [x] P2、P3 未贬损具体国内平台
+- [x] P4 对比图可一眼看懂「更方便」
+- [x] 新读者读首段能理解「上篇是什么」（Mental Gym 封面）
+- [x] 语气符合怪人观察，非测评号、非教程号
+
+---
+
+## 推敲备忘（归档）
+
+| 决策 | 结论 |
+|------|------|
+| MCP 路径 | 开源本地 [excalidraw-mcp-server](https://github.com/debu-sinha/excalidraw-mcp-server)；通用 MCP，不限 Cursor |
+| 创作双模式 | 脚本 scaffold + MCP 微调；本篇由 `build_excalidraw_mcp_carousel.py` 生成 |
+| 叙事 | C 为主（怪人工作流）、A 为辅（审美 vs 模板工具） |
+| 页数 | 1 分享图 + 3 轮播内页 |
+| 封面 | 直接上传 `178157809600-151.jpg`，不生成 |
+| P2 | 功能展示页（手绘元素），非 bullet list |

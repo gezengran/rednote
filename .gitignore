@@ -29,6 +29,7 @@ htmlcov/
 # Node (MCP / tooling)
 node_modules/
 npm-debug.log*
+.playwright-browsers/
 
 # Editors
 .idea/

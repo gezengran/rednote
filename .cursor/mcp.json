@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "excalidraw": {
-      "command": "/opt/homebrew/bin/excalidraw-mcp-server",
+      "command": "/Users/gezengran/Documents/个人/rednote/scripts/run_excalidraw_mcp.sh",
       "args": [],
       "env": {
         "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"

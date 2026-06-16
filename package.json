@@ -1,0 +1,25 @@
+{
+  "name": "rednote",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "export:excalidraw": "node scripts/export_excalidraw_png.mjs",
+    "playwright:install": "PLAYWRIGHT_BROWSERS_PATH=.playwright-browsers npx playwright install chromium"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gezengran/rednote.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/gezengran/rednote/issues"
+  },
+  "homepage": "https://github.com/gezengran/rednote#readme",
+  "devDependencies": {
+    "playwright": "^1.61.0"
+  }
+}
